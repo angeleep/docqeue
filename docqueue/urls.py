@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers, serializers, viewsets
+from knox import views as knox_views
 from queueing.viewsets.doctor import DoctorViewSet
 from queueing.viewsets.patient import PatientViewSet
+from queueing.api.auth import SignInAPI, MainUser
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -27,6 +29,8 @@ router.register(r'patients', PatientViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('api/auth/', include('knox.urls')),
+    path('api/auth/login', SignInAPI.as_view()),
+    path('api/auth/user', MainUser.as_view()),
+    path('api/auth/logout',knox_views.LogoutView.as_view(), name="knox-logout"),
     path('admin/', admin.site.urls),
 ]
