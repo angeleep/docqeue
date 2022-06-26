@@ -18,13 +18,13 @@ from django.urls import path, include
 from rest_framework import routers, serializers, viewsets
 from knox import views as knox_views
 from queueing.viewsets.doctor import DoctorViewSet
-from queueing.viewsets.patient import PatientViewSet
+from queueing.viewsets.appointment import AppointmentViewSet
 from queueing.api.auth import SignInAPI, MainUser
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'doctors', DoctorViewSet)
-router.register(r'patients', PatientViewSet)
+router.register(r'patients', AppointmentViewSet)
 
 
 urlpatterns = [
